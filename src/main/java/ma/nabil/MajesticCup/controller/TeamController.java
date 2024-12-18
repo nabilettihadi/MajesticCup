@@ -23,4 +23,14 @@ public class TeamController {
     public List<TeamDTO> getAllTeams() {
         return teamService.getAllTeams();
     }
+
+    @PutMapping("/{id}")
+    public TeamDTO updateTeam(@PathVariable String id, @RequestBody TeamDTO teamDTO) {
+        return teamService.updateTeam(id, teamDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTeam(@PathVariable String id) {
+        teamService.deleteTeam(id);
+    }
 }

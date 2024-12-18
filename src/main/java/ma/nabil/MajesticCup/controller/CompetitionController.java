@@ -23,4 +23,14 @@ public class CompetitionController {
     public List<CompetitionDTO> getAllCompetitions() {
         return competitionService.getAllCompetitions();
     }
+
+    @PutMapping("/{id}")
+    public CompetitionDTO updateCompetition(@PathVariable String id, @RequestBody CompetitionDTO competitionDTO) {
+        return competitionService.updateCompetition(id, competitionDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCompetition(@PathVariable String id) {
+        competitionService.deleteCompetition(id);
+    }
 }

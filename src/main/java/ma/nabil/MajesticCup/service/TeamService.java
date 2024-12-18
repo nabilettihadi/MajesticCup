@@ -6,5 +6,10 @@ import java.util.List;
 
 public interface TeamService {
     TeamDTO addTeam(TeamDTO teamDTO);
+
     List<TeamDTO> getAllTeams();
+
+    TeamDTO updateTeam(String id, TeamDTO teamDTO);
+
+    void deleteTeam(String id);
 }

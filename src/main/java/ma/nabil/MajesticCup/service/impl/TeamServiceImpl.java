@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +32,21 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository.findAll().stream()
                 .map(teamMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public TeamDTO updateTeam(String id, TeamDTO teamDTO) {
+        Optional<Team> existingTeam = teamRepository.findById(id);
+        if (existingTeam.isPresent()) {
+            Team team = teamMapper.toEntity(teamDTO);
+            team.setId(id);
+            return teamMapper.toDTO(teamRepository.save(team));
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteTeam(String id) {
+        teamRepository.deleteById(id);
     }
 }

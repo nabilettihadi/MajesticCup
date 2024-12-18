@@ -23,4 +23,14 @@ public class PlayerController {
     public List<PlayerDTO> getAllPlayers() {
         return playerService.getAllPlayers();
     }
+
+    @PutMapping("/{id}")
+    public PlayerDTO updatePlayer(@PathVariable String id, @RequestBody PlayerDTO playerDTO) {
+        return playerService.updatePlayer(id, playerDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePlayer(@PathVariable String id) {
+        playerService.deletePlayer(id);
+    }
 }

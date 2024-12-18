@@ -23,4 +23,14 @@ public class RoundController {
     public List<RoundDTO> getAllRounds() {
         return roundService.getAllRounds();
     }
+
+    @PutMapping("/{id}")
+    public RoundDTO updateRound(@PathVariable String id, @RequestBody RoundDTO roundDTO) {
+        return roundService.updateRound(id, roundDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteRound(@PathVariable String id) {
+        roundService.deleteRound(id);
+    }
 }

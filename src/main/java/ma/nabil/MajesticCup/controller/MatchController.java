@@ -23,4 +23,14 @@ public class MatchController {
     public List<MatchDTO> getAllMatches() {
         return matchService.getAllMatches();
     }
+
+    @PutMapping("/{id}")
+    public MatchDTO updateMatch(@PathVariable String id, @RequestBody MatchDTO matchDTO) {
+        return matchService.updateMatch(id, matchDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMatch(@PathVariable String id) {
+        matchService.deleteMatch(id);
+    }
 }
