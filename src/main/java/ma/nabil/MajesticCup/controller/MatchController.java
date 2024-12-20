@@ -1,36 +1,52 @@
 package ma.nabil.MajesticCup.controller;
 
-import ma.nabil.MajesticCup.dto.MatchDTO;
+import lombok.RequiredArgsConstructor;
+import ma.nabil.MajesticCup.entity.Match;
 import ma.nabil.MajesticCup.service.MatchService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/matches")
+@RequiredArgsConstructor
 public class MatchController {
+    private final MatchService matchService;
 
-    @Autowired
-    private MatchService matchService;
-
-    @PostMapping
-    public MatchDTO addMatch(@RequestBody MatchDTO matchDTO) {
-        return matchService.addMatch(matchDTO);
+    @PostMapping("/api/admin/matches")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Match> createMatch(@RequestBody Match match) {
+        return ResponseEntity.ok(matchService.createMatch(match));
     }
 
-    @GetMapping
-    public List<MatchDTO> getAllMatches() {
-        return matchService.getAllMatches();
+    @GetMapping("/api/public/matches")
+    public ResponseEntity<List<Match>> getAllMatches() {
+        return ResponseEntity.ok(matchService.getAllMatches());
     }
 
-    @PutMapping("/{id}")
-    public MatchDTO updateMatch(@PathVariable String id, @RequestBody MatchDTO matchDTO) {
-        return matchService.updateMatch(id, matchDTO);
+    @GetMapping("/api/public/matches/{id}")
+    public ResponseEntity<Match> getMatchById(@PathVariable String id) {
+        return ResponseEntity.ok(matchService.getMatchById(id));
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteMatch(@PathVariable String id) {
+    @PutMapping("/api/admin/matches/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Match> updateMatch(@PathVariable String id, @RequestBody Match match) {
+        return ResponseEntity.ok(matchService.updateMatch(id, match));
+    }
+
+    @DeleteMapping("/api/admin/matches/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteMatch(@PathVariable String id) {
         matchService.deleteMatch(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/operator/matches/{id}/result")
+    @PreAuthorize("hasRole('OPERATOR')")
+    public ResponseEntity<Match> updateMatchResult(@PathVariable String id, @RequestBody Match.Result result) {
+        return ResponseEntity.ok(matchService.updateMatchResult(id, result));
     }
 }
+

@@ -1,36 +1,45 @@
 package ma.nabil.MajesticCup.controller;
 
-import ma.nabil.MajesticCup.dto.PlayerDTO;
+import lombok.RequiredArgsConstructor;
+import ma.nabil.MajesticCup.entity.Player;
 import ma.nabil.MajesticCup.service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/players")
+@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class PlayerController {
-
-    @Autowired
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
     @PostMapping
-    public PlayerDTO addPlayer(@RequestBody PlayerDTO playerDTO) {
-        return playerService.addPlayer(playerDTO);
+    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
+        return ResponseEntity.ok(playerService.createPlayer(player));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable String id) {
+        return ResponseEntity.ok(playerService.getPlayerById(id));
     }
 
     @GetMapping
-    public List<PlayerDTO> getAllPlayers() {
-        return playerService.getAllPlayers();
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
     @PutMapping("/{id}")
-    public PlayerDTO updatePlayer(@PathVariable String id, @RequestBody PlayerDTO playerDTO) {
-        return playerService.updatePlayer(id, playerDTO);
+    public ResponseEntity<Player> updatePlayer(@PathVariable String id, @RequestBody Player player) {
+        return ResponseEntity.ok(playerService.updatePlayer(id, player));
     }
 
     @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable String id) {
+    public ResponseEntity<Void> deletePlayer(@PathVariable String id) {
         playerService.deletePlayer(id);
+        return ResponseEntity.ok().build();
     }
 }
+

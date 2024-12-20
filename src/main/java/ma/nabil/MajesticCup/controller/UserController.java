@@ -1,36 +1,38 @@
 package ma.nabil.MajesticCup.controller;
 
-import ma.nabil.MajesticCup.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
+import ma.nabil.MajesticCup.entity.User;
 import ma.nabil.MajesticCup.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/users")
+@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class UserController {
-
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping
-    public UserDTO addUser(@RequestBody UserDTO userDTO) {
-        return userService.addUser(userDTO);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.createUser(user));
     }
 
-    @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
-    public UserDTO updateUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
-        return userService.updateUser(id, userDTO);
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable String id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 }
+

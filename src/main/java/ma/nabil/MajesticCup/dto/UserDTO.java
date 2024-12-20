@@ -2,10 +2,12 @@ package ma.nabil.MajesticCup.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserDTO {
     private String id;
     private String username;
-    private String password;
-    private String roles;
+    private List<String> roles;
 }
+

@@ -8,24 +8,24 @@ import java.util.List;
 public class MatchDTO {
     private String id;
     private int round;
-    private TeamDTO team1;
-    private TeamDTO team2;
-    private ResultDTO result;
+    private String team1;
+    private String team2;
+    private ResultDto result;
     private String winner;
 
     @Data
-    public static class ResultDTO {
+    public static class ResultDto {
         private int team1Goals;
         private int team2Goals;
-        private List<StatisticsDTO> statistics;
+        private List<PlayerStatisticsDto> statistics;
+    }
 
-        @Data
-        public static class StatisticsDTO {
-            private String playerId;
-            private int goals;
-            private int assists;
-            private int yellowCards;
-            private int redCards;
-        }
+    @Data
+    public static class PlayerStatisticsDto {
+        private String playerId;
+        private int goals;
+        private int assists;
+        private int yellowCards;
+        private int redCards;
     }
 }

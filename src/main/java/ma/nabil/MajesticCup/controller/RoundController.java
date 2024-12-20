@@ -1,36 +1,45 @@
 package ma.nabil.MajesticCup.controller;
 
-import ma.nabil.MajesticCup.dto.RoundDTO;
+import lombok.RequiredArgsConstructor;
+import ma.nabil.MajesticCup.dto.RoundDto;
 import ma.nabil.MajesticCup.service.RoundService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/rounds")
+@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class RoundController {
-
-    @Autowired
-    private RoundService roundService;
+    private final RoundService roundService;
 
     @PostMapping
-    public RoundDTO addRound(@RequestBody RoundDTO roundDTO) {
-        return roundService.addRound(roundDTO);
+    public ResponseEntity<RoundDto> createRound(@RequestBody RoundDto roundDto) {
+        return ResponseEntity.ok(roundService.createRound(roundDto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RoundDto> getRoundById(@PathVariable String id) {
+        return ResponseEntity.ok(roundService.getRoundById(id));
     }
 
     @GetMapping
-    public List<RoundDTO> getAllRounds() {
-        return roundService.getAllRounds();
+    public ResponseEntity<List<RoundDto>> getAllRounds() {
+        return ResponseEntity.ok(roundService.getAllRounds());
     }
 
     @PutMapping("/{id}")
-    public RoundDTO updateRound(@PathVariable String id, @RequestBody RoundDTO roundDTO) {
-        return roundService.updateRound(id, roundDTO);
+    public ResponseEntity<RoundDto> updateRound(@PathVariable String id, @RequestBody RoundDto roundDto) {
+        return ResponseEntity.ok(roundService.updateRound(id, roundDto));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRound(@PathVariable String id) {
+    public ResponseEntity<Void> deleteRound(@PathVariable String id) {
         roundService.deleteRound(id);
+        return ResponseEntity.ok().build();
     }
 }
+
