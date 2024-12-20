@@ -5,11 +5,13 @@ import ma.nabil.MajesticCup.dto.TeamDTO;
 import java.util.List;
 
 public interface TeamService {
-    TeamDTO addTeam(TeamDTO teamDTO);
+    TeamDTO createTeam(TeamDTO teamDTO);
+
+    TeamDTO getTeamById(String id);
 
     List<TeamDTO> getAllTeams();
 
-    TeamDTO updateTeam(String id, TeamDTO teamDTO);
+    TeamDTO updateTeam(String id, TeamDTO team);
 
     void deleteTeam(String id);
 }

@@ -5,11 +5,13 @@ import ma.nabil.MajesticCup.dto.RoundDTO;
 import java.util.List;
 
 public interface RoundService {
-    RoundDTO addRound(RoundDTO roundDTO);
+    RoundDTO createRound(RoundDTO roundDto);
+
+    RoundDTO getRoundById(String id);
 
     List<RoundDTO> getAllRounds();
 
-    RoundDTO updateRound(String id, RoundDTO roundDTO);
+    RoundDTO updateRound(String id, RoundDTO roundDto);
 
     void deleteRound(String id);
 }

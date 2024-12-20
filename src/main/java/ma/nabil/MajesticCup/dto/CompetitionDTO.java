@@ -13,4 +13,3 @@ public class CompetitionDTO {
     private int currentRound;
     private List<String> rounds;
 }
-

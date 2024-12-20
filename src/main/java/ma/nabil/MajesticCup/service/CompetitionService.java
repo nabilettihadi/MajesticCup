@@ -1,15 +1,19 @@
 package ma.nabil.MajesticCup.service;
 
-import ma.nabil.MajesticCup.dto.CompetitionDTO;
+import ma.nabil.MajesticCup.entity.Competition;
 
 import java.util.List;
 
 public interface CompetitionService {
-    CompetitionDTO addCompetition(CompetitionDTO competitionDTO);
+    Competition createCompetition(Competition competition);
 
-    List<CompetitionDTO> getAllCompetitions();
+    Competition getCompetitionById(String id);
 
-    CompetitionDTO updateCompetition(String id, CompetitionDTO competitionDTO);
+    List<Competition> getAllCompetitions();
+
+    Competition updateCompetition(String id, Competition competition);
 
     void deleteCompetition(String id);
+
+    Competition createNextRound(String competitionId);
 }

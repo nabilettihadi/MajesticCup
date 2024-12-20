@@ -1,7 +1,7 @@
 package ma.nabil.MajesticCup.controller;
 
 import lombok.RequiredArgsConstructor;
-import ma.nabil.MajesticCup.dto.RoundDto;
+import ma.nabil.MajesticCup.dto.RoundDTO;
 import ma.nabil.MajesticCup.service.RoundService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,22 +17,22 @@ public class RoundController {
     private final RoundService roundService;
 
     @PostMapping
-    public ResponseEntity<RoundDto> createRound(@RequestBody RoundDto roundDto) {
+    public ResponseEntity<RoundDTO> createRound(@RequestBody RoundDTO roundDto) {
         return ResponseEntity.ok(roundService.createRound(roundDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoundDto> getRoundById(@PathVariable String id) {
+    public ResponseEntity<RoundDTO> getRoundById(@PathVariable String id) {
         return ResponseEntity.ok(roundService.getRoundById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<RoundDto>> getAllRounds() {
+    public ResponseEntity<List<RoundDTO>> getAllRounds() {
         return ResponseEntity.ok(roundService.getAllRounds());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoundDto> updateRound(@PathVariable String id, @RequestBody RoundDto roundDto) {
+    public ResponseEntity<RoundDTO> updateRound(@PathVariable String id, @RequestBody RoundDTO roundDto) {
         return ResponseEntity.ok(roundService.updateRound(id, roundDto));
     }
 

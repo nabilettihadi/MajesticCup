@@ -1,15 +1,17 @@
 package ma.nabil.MajesticCup.service;
 
-import ma.nabil.MajesticCup.dto.PlayerDTO;
+import ma.nabil.MajesticCup.entity.Player;
 
 import java.util.List;
 
 public interface PlayerService {
-    PlayerDTO addPlayer(PlayerDTO playerDTO);
+    Player createPlayer(Player player);
 
-    List<PlayerDTO> getAllPlayers();
+    Player getPlayerById(String id);
 
-    PlayerDTO updatePlayer(String id, PlayerDTO playerDTO);
+    List<Player> getAllPlayers();
+
+    Player updatePlayer(String id, Player player);
 
     void deletePlayer(String id);
 }

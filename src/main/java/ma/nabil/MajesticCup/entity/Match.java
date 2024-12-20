@@ -12,8 +12,8 @@ public class Match {
     @Id
     private String id;
     private int round;
-    private Team team1;
-    private Team team2;
+    private String team1;
+    private String team2;
     private Result result;
     private String winner;
 
@@ -21,15 +21,15 @@ public class Match {
     public static class Result {
         private int team1Goals;
         private int team2Goals;
-        private List<Statistics> statistics;
+        private List<PlayerStatistics> statistics;
+    }
 
-        @Data
-        public static class Statistics {
-            private String playerId;
-            private int goals;
-            private int assists;
-            private int yellowCards;
-            private int redCards;
-        }
+    @Data
+    public static class PlayerStatistics {
+        private String playerId;
+        private int goals;
+        private int assists;
+        private int yellowCards;
+        private int redCards;
     }
 }

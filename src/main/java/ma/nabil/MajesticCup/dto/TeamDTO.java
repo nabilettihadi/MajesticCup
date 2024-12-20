@@ -11,4 +11,3 @@ public class TeamDTO {
     private String city;
     private List<PlayerDTO> players;
 }
-

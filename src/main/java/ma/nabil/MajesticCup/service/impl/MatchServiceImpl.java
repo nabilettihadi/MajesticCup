@@ -1,52 +1,60 @@
 package ma.nabil.MajesticCup.service.impl;
 
-import ma.nabil.MajesticCup.dto.MatchDTO;
+import lombok.RequiredArgsConstructor;
 import ma.nabil.MajesticCup.entity.Match;
-import ma.nabil.MajesticCup.mapper.MatchMapper;
 import ma.nabil.MajesticCup.repository.MatchRepository;
 import ma.nabil.MajesticCup.service.MatchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MatchServiceImpl implements MatchService {
-
-    @Autowired
-    private MatchRepository matchRepository;
-
-    @Autowired
-    private MatchMapper matchMapper;
+    private final MatchRepository matchRepository;
 
     @Override
-    public MatchDTO addMatch(MatchDTO matchDTO) {
-        Match match = matchMapper.toEntity(matchDTO);
-        return matchMapper.toDTO(matchRepository.save(match));
+    public Match createMatch(Match match) {
+        return matchRepository.save(match);
     }
 
     @Override
-    public List<MatchDTO> getAllMatches() {
-        return matchRepository.findAll().stream()
-                .map(matchMapper::toDTO)
-                .collect(Collectors.toList());
+    public Match getMatchById(String id) {
+        return matchRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Match not found"));
     }
 
     @Override
-    public MatchDTO updateMatch(String id, MatchDTO matchDTO) {
-        Optional<Match> existingMatch = matchRepository.findById(id);
-        if (existingMatch.isPresent()) {
-            Match match = matchMapper.toEntity(matchDTO);
-            match.setId(id);
-            return matchMapper.toDTO(matchRepository.save(match));
-        }
-        return null;
+    public List<Match> getAllMatches() {
+        return matchRepository.findAll();
+    }
+
+    @Override
+    public Match updateMatch(String id, Match match) {
+        Match existingMatch = getMatchById(id);
+        existingMatch.setRound(match.getRound());
+        existingMatch.setTeam1(match.getTeam1());
+        existingMatch.setTeam2(match.getTeam2());
+        existingMatch.setResult(match.getResult());
+        existingMatch.setWinner(match.getWinner());
+        return matchRepository.save(existingMatch);
     }
 
     @Override
     public void deleteMatch(String id) {
         matchRepository.deleteById(id);
     }
+
+    @Override
+    public Match updateMatchResult(String id, Match.Result result) {
+        Match match = getMatchById(id);
+        match.setResult(result);
+        if (result.getTeam1Goals() > result.getTeam2Goals()) {
+            match.setWinner(match.getTeam1());
+        } else if (result.getTeam2Goals() > result.getTeam1Goals()) {
+            match.setWinner(match.getTeam2());
+        }
+        return matchRepository.save(match);
+    }
 }
+

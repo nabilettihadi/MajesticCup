@@ -10,4 +10,3 @@ public class PlayerDTO {
     private String position;
     private int number;
 }
-

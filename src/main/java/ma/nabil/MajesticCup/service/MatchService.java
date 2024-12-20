@@ -1,15 +1,19 @@
 package ma.nabil.MajesticCup.service;
 
-import ma.nabil.MajesticCup.dto.MatchDTO;
+import ma.nabil.MajesticCup.entity.Match;
 
 import java.util.List;
 
 public interface MatchService {
-    MatchDTO addMatch(MatchDTO matchDTO);
+    Match createMatch(Match match);
 
-    List<MatchDTO> getAllMatches();
+    Match getMatchById(String id);
 
-    MatchDTO updateMatch(String id, MatchDTO matchDTO);
+    List<Match> getAllMatches();
+
+    Match updateMatch(String id, Match match);
 
     void deleteMatch(String id);
+
+    Match updateMatchResult(String id, Match.Result result);
 }

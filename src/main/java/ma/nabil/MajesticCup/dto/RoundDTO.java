@@ -11,4 +11,3 @@ public class RoundDTO {
     private String competitionId;
     private List<MatchDTO> matches;
 }
-

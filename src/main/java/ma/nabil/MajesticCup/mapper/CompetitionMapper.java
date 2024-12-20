@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CompetitionMapper {
-    CompetitionDTO toDTO(Competition competition);
+    CompetitionDTO toDto(Competition competition);
 
     Competition toEntity(CompetitionDTO competitionDTO);
 }

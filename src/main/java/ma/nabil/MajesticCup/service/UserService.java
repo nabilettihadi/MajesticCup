@@ -1,15 +1,14 @@
 package ma.nabil.MajesticCup.service;
 
-import ma.nabil.MajesticCup.dto.UserDTO;
+import ma.nabil.MajesticCup.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.List;
+public interface UserService extends UserDetailsService {
+    User createUser(User user);
 
-public interface UserService {
-    UserDTO addUser(UserDTO userDTO);
+    User getUserById(String id);
 
-    List<UserDTO> getAllUsers();
-
-    UserDTO updateUser(String id, UserDTO userDTO);
+    User updateUser(String id, User user);
 
     void deleteUser(String id);
 }

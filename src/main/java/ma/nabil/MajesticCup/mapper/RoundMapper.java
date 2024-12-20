@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RoundMapper {
-    RoundDTO toDTO(Round round);
+    RoundDTO toDto(Round round);
 
     Round toEntity(RoundDTO roundDTO);
 }

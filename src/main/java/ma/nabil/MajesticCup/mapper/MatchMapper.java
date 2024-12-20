@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MatchMapper {
-    MatchDTO toDTO(Match match);
+    MatchDTO toDto(Match match);
 
     Match toEntity(MatchDTO matchDTO);
 }
